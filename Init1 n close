@@ -1,0 +1,40 @@
+bool init()
+{
+    bool success = true;
+    if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+	{
+		cout<<"SDL error"<<endl<<SDL_GetError();
+	}
+
+	else
+	{
+	    //create window
+	     gWindow = SDL_CreateWindow( "Your mom", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+        if( gWindow == NULL )
+        {
+            cout<<"Cant open"<<endl<<SDL_GetError();
+            success = false;
+        }
+        else
+        {
+            //Get window surface
+            gScreenSurface = SDL_GetWindowSurface( gWindow );
+        }
+
+	}
+	return success;
+}
+
+void close()
+{
+    //Deallocate surface
+    SDL_FreeSurface( gHelloWorld );
+    gHelloWorld = NULL;
+
+    //Destroy window
+    SDL_DestroyWindow( gWindow );
+    gWindow = NULL;
+
+    //Quit SDL subsystems
+    SDL_Quit();
+}
